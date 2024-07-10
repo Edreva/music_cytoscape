@@ -4,7 +4,7 @@ from dash.dependencies import Input, Output
 import iGetMusic as iGet
 
 app = Dash(__name__)
-
+server = app.server
 cyto.load_extra_layouts()
 
 stylesheet = [
