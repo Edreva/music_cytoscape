@@ -7,6 +7,8 @@ app = Dash(__name__)
 server = app.server
 cyto.load_extra_layouts()
 
+# TODO: Button to toggle band edges
+
 stylesheet = [
     {
         'selector': 'node',
@@ -15,7 +17,8 @@ stylesheet = [
     {
         'selector': '.genre_edge',
         'style': {
-            'line-color': 'red'
+            'line-color': 'slategrey',
+            'source-arrow-shape': 'triangle'
         }
     },
     {
@@ -45,21 +48,27 @@ genre_nodes = [
         'classes': 'genre_node',
     }
     for id, name in (
-        ('mdm', 'Melodic Death Metal'),
         ('prg', 'Progressive Metal'),
         ('bm', 'Black Metal'),
-        ('dsbm', 'DSBM'),
-        ('bg', 'Blackgaze'),
-        ('pbm', 'Post-Black Metal'),
-        ('abm', 'Atmospheric Black Metal'),
         ('hm', 'Heavy Metal'),
         ('dm', 'Death Metal'),
         ('gm', 'Groove Metal'),
         ('tm', 'Thrash Metal'),
         ('fm', 'Folk Metal'),
         ('pm', 'Power Metal'),
-        ('mc', 'Metalcore'),
-        ('dc', 'Deathcore'),
+        ('mcr', 'Metalcore'),
+        ('dcr', 'Deathcore'),
+        ('doom', 'Doom Metal'),
+        ('goth', 'Gothic Metal'),
+        ('crst', 'Crust Punk'),
+        ('gcr', 'Grindcore'),
+        ('im', 'Industrial Metal'),
+        ('sm', 'Symphonic Metal'),
+        ('pop', 'Pop Metal'),
+        ('hcp', 'Hardcore Punk'),
+        ('num', 'Nu Metal'),
+        ('alt', 'Alt. Metal'),
+              
     )
 ]
 
@@ -69,7 +78,20 @@ microgenre_nodes = [
         'classes': 'genre_node',
     }
     for id, name, parent in (
+        ('mdm', 'Melodic Death Metal', 'dm'),
         ('vm', '"Viking Metal"', 'mdm'),
+        ('pmcr', 'Prog. Metalcore', 'mcr'),
+        ('pdcr', 'Prog. Deathcore', 'dcr'),
+        ('pmdm', 'Prog. Melodeath', 'mdm'),
+        ('ecr', 'Electronicore', 'mcr'),
+        ('thl', 'Thall', 'prg'),
+        ('celt', '"Celtic Metal"', 'fm'),
+        ('pirt', '"Pirate Metal"', 'fm'),
+        ('pgm', 'Prog. Groove Metal', 'gm'),
+        ('dsbm', 'DSBM', 'bm'),
+        ('bg', 'Blackgaze', 'bm'),
+        ('abm', 'Atmospheric Black Metal', 'bm'),
+        ('bjaz','"Dark Jazz"', 'bm'),
     )
 ]
 genre_edges = [
@@ -77,14 +99,32 @@ genre_edges = [
         'data': {'source': source, 'target': target},
         'classes': 'genre_edge'
     }
-    for source, target in (
-        ('bm', 'dsbm'),
-        ('bm', 'bg'),
-        ('bm', 'pbm'),
-        ('bm', 'abm'),
+    for target, source in (
         ('hm', 'bm'),
-        ('dm', 'mdm'),
-        ('hm', 'dm')
+        ('hm', 'prg'),
+        ('hm', 'im'),
+        ('tm', 'dm'),
+        ('tm', 'gm'),
+        ('hcp', 'dm'),
+        ('dm', 'bm'),
+        ('bm', 'dm'),
+        ('hm', 'pop'),
+        ('crst', 'gcr'),
+        ('hcp', 'crst'),
+        ('hcp', 'mcr'),
+        ('hm','mcr'),
+        ('hm', 'crst'),
+        ('dm','dcr'),
+        ('mcr','dcr'),
+        ('hm', 'pm'),
+        ('hm', 'sm'),
+        ('hm', 'goth'),
+        ('hm', 'fm'),
+        ('hm', 'doom'),
+        ('hm', 'tm'),
+        ('hm', 'alt'),
+        ('im', 'num'),
+        
     )
 ]
 
@@ -110,18 +150,22 @@ band_nodes = [
         ('INS', 'Insomnium', 'mdm', 'Down With The Sun'),
         ('ALC', 'Alcest', 'bg', 'Kodama'),
         ('ULV', 'Ulver', 'bm', 'I Troldskog Faren Vild'),
-        ('HFS', 'Harakiri for the Sky', 'pbm', 'Manifesto'),
-        ('KAK', 'Kekht Arakh', 'pbm', 'Swordsman'),
+        ('HFS', 'Harakiri for the Sky', 'bg', 'Manifesto'),
+        ('KAK', 'Kekht Arakh', 'abm', 'Swordsman'),
+        ('ELL', 'Ellende', 'abm', 'Wind'),
         ('MGL', 'MGLA', 'bm', 'Exercises in Futility V'),
         ('MUL', 'My Useless Life', 'dsbm', 'A Desolate Heart'),
-        ('SVB', 'Svalbard', 'pbm', 'Listen to Someone'),  # Try not to die until you're dead
+        ('WHW', 'White Ward', 'bjaz', 'Cronus'),
+        ('SVB', 'Svalbard', 'bg', 'Listen to Someone'),  # Try not to die until you're dead
         ('ELD', 'Elderwind', 'abm', 'The Magic Of Nature'), # Maybe remove
         ('COF', 'Cult of Fire', 'abm', 'Kali Ma'), # Maybe remove
         ('BSB', 'Black Sabbath', 'hm', 'Heaven and Hell'),
+        ('IRN', 'Iron Maiden', 'hm', 'The Trooper'),
         ('ICE', 'Iced Earth', 'hm', 'Anthem'),
         ('DTH', 'Death', 'dm', 'Spirit Crusher'),
+        ('RVC', 'Revocation', 'dm', 'The Grip Tightens'),
         ('AMA', 'Amon Amarth', 'vm', 'Twilight Of The Thunder God'),  # Cry of the Blackbirds
-        ('BLK', 'Be\'lakor', 'mdm', 'Abeyance'),  # Root to Sever, Smoke of many fires
+        ('BLK', 'Be\'lakor', 'pmdm', 'Abeyance'),  # Root to Sever, Smoke of many fires
         ('SWK', 'Soilwork', 'mdm', 'Distortion Sleep'),
         ('DTQ', 'Dark Tranquility', 'mdm', 'Time out of Place'),
         ('OBC', 'Orbit Culture', 'mdm', 'See Through Me'),
@@ -132,23 +176,80 @@ band_nodes = [
         ('ODO', 'Orden Ogan', 'pm', 'Gunman'),
         ('PWF', 'Powerwolf', 'pm', 'Army of the Night'),
         ('OPT', 'Opeth', 'prg', 'Reverie / Harlequin Forest'),
-        ('DRT', 'Dream Theatre', 'prg', 'Pull Me Under'),
-        ('TVM', 'Trivium', 'mcr', ''),
-        ('ALD', 'As I Lay Dying', 'mcr', ''),
-        ('LMK', 'Landmvrks', 'mcr', ''),
-        ('AVA', 'Aviana', 'mcr', ''),
-        ('ALT', 'Allt', 'mcr', ''),
-        ('ARC', 'Architects', 'mcr', ''),
+        ('DRT', 'Dream Theater', 'prg', 'Pull Me Under'),
+        ('TVM', 'Trivium', 'mcr', 'The Sin and the Sentence'),
+        ('ALD', 'As I Lay Dying', 'mcr', 'Through Struggle'),
+        ('LMK', 'Landmvrks', 'mcr', 'Creature'),
+        ('AVA', 'Aviana', 'dcr', 'Oblivion'),
+        ('ALT', 'Allt', 'pmcr', 'Remnant'),
+        ('ARC', 'Architects', 'mcr', 'Dead Man Talking'),
+        ('THN', 'Thornhill', 'mcr', 'Human'),
+        ('BRT', 'Bury Tomorow', 'mcr', 'The Agonist'),
+        ('MNM', 'Monuments', 'pmcr', 'False Providence'),
+        ('ERA', 'ERRA', 'pmcr', 'Nigh to Silence'),
+        ('NRT', 'Northlane', 'pmcr', '4D'),
+        ('SPB', 'Spiritbox', 'pmcr', 'The Beauty of Suffering'),
+        ('INA', 'Invent Animate', 'pmcr', 'Purity Weeps'),
+        ('SIP', 'Silent Planet', 'pmcr', 'Second Sun'),
+        ('CUR', 'Currents', 'pmcr', 'The Place Where I Feel Safest'),
+        ('ECB', 'Electric Callboy', 'ecr', 'Hypa Hypa'),
+        ('ESH', 'Enter Shikari', 'ecr', '...Meltdown'),
+        ('SLP', 'Slipknot', 'num', 'Wait and Bleed'),
+        ('MAC', 'Machine Head', 'num', 'Circle the Drain'),
+        ('LIP', 'Linkin Park', 'num', 'Don\'t Stay'),
+        ('SOD', 'System of a Down', 'num', 'B.Y.O.B'),
+        ('WIT', 'Within Temptation', 'pop', 'Bleed Out'),
+        ('BCH', 'Blind Channel', 'pop', 'Flatline'),
+        # Bad Omens
+        ('BMT', 'Bring Me The Horizon', 'pop', 'Doomed'),
+        ('FFA', 'Fit for an Autopsy', 'dcr', 'Two Towers'),
+        ('WCH', 'Whitechapel', 'dcr', 'A Bloodsoaked Symphony'),
+        ('SOI', 'Shadow of Intent', 'pdcr', 'Intensified Genocide'),
+        # ('DWP', 'The Devil Wears Prada', 'mcr', )
+        ('HLB', 'Humanity\'s Last Breath', 'pdcr', 'Instill'), # Blackened Deathcore with Thall
+        ('VLJ', 'Vildjharta', 'thl', 'lavender haze'),
+        ('MIR', 'Mirar', 'thl', 'Franka'),
+        ('MGD', 'Megadeth', 'tm', 'The Scorpion'),
+        ('MCH', 'Melechech', 'tm', 'Multiple Truths'),  # blackened thrash metal
+        ('MET', 'Metallica', 'tm', 'The Unforgiven'),
+        ('STS', 'Swallow the Sun', 'doom', 'Falling World'),  # blackened death-doom with gothic edge
+        ('FAE', 'Faetooth', 'doom', 'Strange Ways'),  # Fairy doom
+        ('MDB', 'My Dying Bride', 'doom', 'Your Broken Shore'),
+        ('FOE', 'Fall of Efrafa', 'crst', 'Pity the Weak'),
+        ('LAC', 'Lacuna Coil', 'goth', 'Our Truth'),
+        ('PRD', 'Paradise Lost', 'goth', 'Ghosts'),
+        ('KTA', 'Katatonia', 'goth', 'For My Demons'),
+        ('CAT', 'Cattle Decapitation', 'gcr', 'Manufactured Extinct'),
+        ('RAM', 'Rammstein', 'im', 'Feuer Frei!'),
+        ('RNC', 'Raunchy', 'im', 'A Heavy Burden'),
+        ('ELV', 'Eluveitie', 'celt', 'Quoth the Raven'),
+        ('GRA', 'Grai', 'fm', 'Song of Dead Water'),
+        ('KPK', 'Korpiklaani', 'fm', 'Ruumiinmultaa'),
+        ('ALE', 'Alestorm', 'pirt', 'Keelhauled'),
+        ('NWS', 'Nightwish', 'sm', 'Ghost Love Score'),
+        ('AVT', 'Avantasia', 'sm', 'The Scarecrow'),  # Metal opera
+        ('LOG', 'Lamb of God', 'gm', 'Memento Mori'),
+        ('GOJ', 'Gojira', 'pgm', 'The Axe'),  # Prog/Groove/Death
+        ('JIN', 'Jinjer', 'pgm', 'On The Top'),
+        ('TOO', 'Tool', 'prg', 'Lateralus'),
+        ('DFT', 'Deftones', 'alt', 'Digital Bath'),
+        ('SLT', 'Sleep Token', 'alt', 'Alkaline'),
+        ('ZAA', 'Zeal and Ardor', 'alt', 'Gotterdamerung'),
+        ('NOK', 'Knocked Loose', 'hcp', 'Deep in the Willow'),
         
     )
 ]
-elements = genre_nodes + genre_edges + band_nodes + band_edges + microgenre_nodes
+elements = genre_nodes + genre_edges + band_nodes + microgenre_nodes# + band_edges
 app.layout = html.Div([
     dcc.Location(id="location"),
     cyto.Cytoscape(
         id='cytoscape',
-        layout={'name': 'cose-bilkent'},
-        style={'width': '100%', 'height': '450px'},
+        # layout = {'name': 'grid'},
+        layout={'name': 'fcose', 'nodeSeparation': 100, 
+                'idealEdgeLength': 250, 'nodeDimensionsIncludeLabels': True,
+                'uniformNodeDimensions': False}, 
+        # layout={'name': 'cose-bilkent', 'idealEdgeLength': 200},
+        style={'width': '100%', 'height': '550px'},
         stylesheet=stylesheet,
         elements=elements
     )
