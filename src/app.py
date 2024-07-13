@@ -178,7 +178,7 @@ band_nodes = [
         ('AMA', 'Amon Amarth', 'vm', 'Twilight Of The Thunder God', 'no'),  # Cry of the Blackbirds
         ('BLK', 'Be\'lakor', 'pmdm', 'Abeyance', 'au'),  # Root to Sever, Smoke of many fires
         ('SWK', 'Soilwork', 'mdm', 'Distortion Sleep', 'se'),
-        ('DTQ', 'Dark Tranquility', 'mdm', 'Time Out of Place', 'se'),
+        ('DTQ', 'Dark Tranquility', 'mdm', 'Terminus', 'se'),
         ('OBC', 'Orbit Culture', 'mdm', 'See Through Me', 'se'),
         ('HNT', 'The Haunted', 'mdm', 'The Fallout', 'se'),
         ('DIS', 'Disarmonia Mundi', 'mdm', 'Celestial Furnace', 'it'),
@@ -218,7 +218,7 @@ band_nodes = [
         ('SOD', 'System of a Down', 'num', 'B.Y.O.B', 'am'),
         ('WIT', 'Within Temptation', 'pop', 'Bleed Out', 'nl'),
         ('BCH', 'Blind Channel', 'pop', 'Flatline', 'fi'),
-        ('BAD', 'Bad Omens', 'pop', 'Artificial Suicide', 'us'),
+        ('BAD', 'Bad Omens', 'pop', 'The Grey', 'us'),
         ('BMT', 'Bring Me The Horizon', 'pop', 'Doomed', 'gb'),
         ('FFA', 'Fit for an Autopsy', 'dcr', 'Two Towers', 'us'),
         ('WCH', 'Whitechapel', 'dcr', 'A Bloodsoaked Symphony', 'us'),
