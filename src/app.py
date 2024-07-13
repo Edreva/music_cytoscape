@@ -172,13 +172,13 @@ band_nodes = [
         ('BSB', 'Black Sabbath', 'hm', 'Heaven and Hell', 'gb'),
         ('IRN', 'Iron Maiden', 'hm', 'The Trooper', 'gb'),
         ('ICE', 'Iced Earth', 'hm', 'Anthem', 'us'),
-        ('DTH', 'Death', 'dm', 'Spirit Crusher', 'us'),
+        ('DTH', 'Death', 'dm', 'Flesh and the Power It Holds', 'us'),
         ('SEP', 'Septicflesh', 'dm', 'Anubis', 'gr'),
         ('RVC', 'Revocation', 'dm', 'The Grip Tightens', 'us'),
         ('AMA', 'Amon Amarth', 'vm', 'Twilight Of The Thunder God', 'no'),  # Cry of the Blackbirds
         ('BLK', 'Be\'lakor', 'pmdm', 'Abeyance', 'au'),  # Root to Sever, Smoke of many fires
         ('SWK', 'Soilwork', 'mdm', 'Distortion Sleep', 'se'),
-        ('DTQ', 'Dark Tranquility', 'mdm', 'Time out of Place', 'se'),
+        ('DTQ', 'Dark Tranquility', 'mdm', 'Time Out of Place', 'se'),
         ('OBC', 'Orbit Culture', 'mdm', 'See Through Me', 'se'),
         ('HNT', 'The Haunted', 'mdm', 'The Fallout', 'se'),
         ('DIS', 'Disarmonia Mundi', 'mdm', 'Celestial Furnace', 'it'),
