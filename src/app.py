@@ -28,6 +28,7 @@ stylesheet = [
         'style': {
             'background-color': 'red',
             'background-opacity': '0.2',
+            'font-weight': 'bold',
             'shape': 'roundrectangle',
             'width': '100%',
             'height': '100%'
