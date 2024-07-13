@@ -279,7 +279,7 @@ app.layout = html.Div([
                 'idealEdgeLength': 250, 'nodeDimensionsIncludeLabels': True,
                 'uniformNodeDimensions': False}, 
         # layout={'name': 'cose-bilkent', 'idealEdgeLength': 200},
-        style={'width': '100%', 'height': '550px'},
+        style={'width': '100%', 'height': '750px'},
         stylesheet=stylesheet,
         elements=elements
     )
@@ -299,5 +299,5 @@ def navigate_to_url(node_data):
 
     
 if __name__ == '__main__':
-    # app.run_server(host="0.0.0.0", port="8050")
-    app.run(debug=True)
+    app.run_server(host="0.0.0.0", port="8050")
+    # app.run(debug=True)
